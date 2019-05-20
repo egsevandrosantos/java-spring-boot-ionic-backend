@@ -4,8 +4,7 @@ import com.evandrosantos.cursomc.domain.abstracts.Pagamento;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
@@ -22,6 +21,8 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() { }
 
@@ -34,6 +35,14 @@ public class Pedido implements Serializable {
 
     public Pedido(Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         this(null, instante, cliente, enderecoDeEntrega);
+    }
+
+    public List<Produto> getProdutos() {
+        List<Produto> produtos = new ArrayList<>();
+        for(ItemPedido x : itens) {
+            produtos.add(x.getProduto());
+        }
+        return produtos;
     }
 
     public Integer getId() {
@@ -74,6 +83,14 @@ public class Pedido implements Serializable {
 
     public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return this.itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     @Override
