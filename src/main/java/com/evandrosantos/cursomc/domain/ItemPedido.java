@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.domain;
 
 import com.evandrosantos.cursomc.domain.pk.ItemPedidoPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import java.util.Objects;
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
+    @JsonIgnore
     private ItemPedidoPK id = new ItemPedidoPK();
     private Double desconto;
     private Integer quantidade;
@@ -29,6 +31,7 @@ public class ItemPedido implements Serializable {
         this(null, null, desconto, quantidade, preco);
     }
 
+    @JsonIgnore
     public Pedido getPedido() {
         return this.id.getPedido();
     }

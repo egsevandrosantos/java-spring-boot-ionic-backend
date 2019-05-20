@@ -2,6 +2,7 @@ package com.evandrosantos.cursomc.domain.abstracts;
 
 import com.evandrosantos.cursomc.domain.Pedido;
 import com.evandrosantos.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public abstract class Pagamento implements Serializable {
     private Integer estado;
     @OneToOne
     @JoinColumn(name = "pedido_id")
+    @JsonBackReference
     private Pedido pedido;
 
     public Pagamento() { }
