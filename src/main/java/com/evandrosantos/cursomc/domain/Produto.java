@@ -17,10 +17,10 @@ public class Produto implements Serializable {
     private Double preco;
     @ManyToMany
     @JoinTable(name = "CATEGORIA_PRODUTO", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-    @JsonBackReference
+    @JsonIgnore
     private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "id.produto")
-    @JsonBackReference
+    @JsonIgnore
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Produto() { }

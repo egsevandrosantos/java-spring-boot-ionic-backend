@@ -19,4 +19,11 @@ public class CategoriaService {
             throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Categoria", id));
         });
     }
+
+    public Categoria insertOrUpdate(Categoria categoria) {
+        if (categoria.getId() == null) // Insert
+            return repository.save(categoria);
+        else // Update
+            return null;
+    }
 }

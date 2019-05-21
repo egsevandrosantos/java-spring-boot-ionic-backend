@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class Endereco implements Serializable {
     private String cep;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonBackReference
+    @JsonIgnore
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "cidade_id")

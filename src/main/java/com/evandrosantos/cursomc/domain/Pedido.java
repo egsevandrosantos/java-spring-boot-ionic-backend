@@ -17,11 +17,9 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-    @JsonManagedReference
     private Pagamento pagamento;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonManagedReference
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
