@@ -6,6 +6,7 @@ import com.evandrosantos.cursomc.dto.categorias.AlterarStatusDTO;
 import com.evandrosantos.cursomc.dto.categorias.CategoriaDTO;
 import com.evandrosantos.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,6 +24,12 @@ public class CategoriaResource {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoriaDTO>> findAll() {
         List<CategoriaDTO> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "12") Integer size, @RequestParam(value = "orderBy", defaultValue = "id") String orderBy, @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        Page<CategoriaDTO> list = service.findPage(page, size, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
 

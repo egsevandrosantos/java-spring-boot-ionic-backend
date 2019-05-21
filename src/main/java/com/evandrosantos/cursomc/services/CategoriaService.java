@@ -8,8 +8,10 @@ import com.evandrosantos.cursomc.services.exceptions.MyDataIntegrityViolationExc
 import com.evandrosantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,13 @@ public class CategoriaService {
         List<Categoria> categorias = repository.findAll();
         List<CategoriaDTO> categoriasDTO = categorias.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
         return categoriasDTO;
+    }
+
+    public Page<CategoriaDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), orderBy);
+        Page<Categoria> pageCategorias = repository.findAll(pageRequest);
+        Page<CategoriaDTO> pageCategoriasDTO = pageCategorias.map(categoria -> new CategoriaDTO(categoria));
+        return pageCategoriasDTO;
     }
 
     public Categoria insertOrUpdate(Categoria categoria) {
