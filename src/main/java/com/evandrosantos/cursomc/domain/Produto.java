@@ -20,7 +20,7 @@ public class Produto implements Serializable {
     @JsonBackReference
     private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "id.produto")
-    @JsonIgnore
+    @JsonBackReference
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Produto() { }

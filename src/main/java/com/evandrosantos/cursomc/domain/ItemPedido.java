@@ -12,7 +12,6 @@ import java.util.Objects;
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    @JsonIgnore
     private ItemPedidoPK id = new ItemPedidoPK();
     private Double desconto;
     private Integer quantidade;
