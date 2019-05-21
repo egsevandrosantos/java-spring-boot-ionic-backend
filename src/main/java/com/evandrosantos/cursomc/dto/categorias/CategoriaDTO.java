@@ -3,13 +3,17 @@ package com.evandrosantos.cursomc.dto.categorias;
 import com.evandrosantos.cursomc.domain.Categoria;
 import com.evandrosantos.cursomc.domain.enums.Status;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class CategoriaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
+    @NotBlank(message = "Preenchimento obrigatório")
+    @Size(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres.")
     private String nome;
-    private Integer status;
+    private Status status;
 
     public CategoriaDTO() { }
 
@@ -40,14 +44,14 @@ public class CategoriaDTO implements Serializable {
     }
 
     public Status getStatus() {
-        return Status.getEnumByCod(this.status);
+        return this.status;
     }
 
     public String getDescricaoStatus() {
-        return this.getStatus().getDescricao();
+        return this.status.getDescricao();
     }
 
     public void setStatus(Status status) {
-        this.status = status.getCod();
+        this.status = status;
     }
 }

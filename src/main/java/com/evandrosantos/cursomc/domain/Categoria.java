@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.domain;
 
 import com.evandrosantos.cursomc.domain.enums.Status;
+import com.evandrosantos.cursomc.dto.categorias.CategoriaDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +31,10 @@ public class Categoria implements Serializable {
 
     public Categoria(String nome, Status status) {
         this(null, nome, status);
+    }
+
+    public Categoria(CategoriaDTO categoriaDTO) {
+        this(categoriaDTO.getId(), categoriaDTO.getNome(), categoriaDTO.getStatus());
     }
 
     public Integer getId() {

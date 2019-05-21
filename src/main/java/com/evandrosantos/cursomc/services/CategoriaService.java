@@ -42,9 +42,10 @@ public class CategoriaService {
         return pageCategoriasDTO;
     }
 
-    public Categoria insertOrUpdate(Categoria categoria) {
-        if (categoria.getId() != null)
-            find(categoria.getId());
+    public Categoria insertOrUpdate(CategoriaDTO categoriaDTO) {
+        if (categoriaDTO.getId() != null)
+            find(categoriaDTO.getId());
+        Categoria categoria = new Categoria(categoriaDTO);
         return repository.save(categoria);
     }
 
