@@ -1,6 +1,9 @@
 package com.evandrosantos.cursomc.resources.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 public class StandardError implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -32,8 +35,9 @@ public class StandardError implements Serializable {
         this.msg = msg;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return sdf.format(timestamp);
     }
 
     public void setTimestamp(Long timestamp) {

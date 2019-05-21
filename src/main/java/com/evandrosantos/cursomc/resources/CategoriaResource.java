@@ -1,6 +1,8 @@
 package com.evandrosantos.cursomc.resources;
 
 import com.evandrosantos.cursomc.domain.Categoria;
+import com.evandrosantos.cursomc.domain.enums.Status;
+import com.evandrosantos.cursomc.dto.categorias.AlterarStatusDTO;
 import com.evandrosantos.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,19 @@ public class CategoriaResource {
     public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria categoria) {
         categoria.setId(id);
         service.insertOrUpdate(categoria);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Void> patch(@PathVariable Integer id, @RequestBody AlterarStatusDTO alterarStatusDTO) {
+        alterarStatusDTO.setId(id);
+        service.patch(alterarStatusDTO);
         return ResponseEntity.noContent().build();
     }
 }

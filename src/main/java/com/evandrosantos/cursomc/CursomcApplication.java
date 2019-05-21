@@ -3,6 +3,7 @@ package com.evandrosantos.cursomc;
 import com.evandrosantos.cursomc.domain.*;
 import com.evandrosantos.cursomc.domain.abstracts.Pagamento;
 import com.evandrosantos.cursomc.domain.enums.EstadoPagamento;
+import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
 import com.evandrosantos.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class CursomcApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Categoria cat1 = new Categoria("Informática");
-        Categoria cat2 = new Categoria("Escritório");
+        Categoria cat1 = new Categoria("Informática", Status.ATIVO);
+        Categoria cat2 = new Categoria("Escritório", Status.ATIVO);
 
         Produto p1 = new Produto("Computador", 2000.00);
         Produto p2 = new Produto("Impressora", 800.00);

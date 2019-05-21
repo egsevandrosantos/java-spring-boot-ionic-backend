@@ -1,6 +1,6 @@
 package com.evandrosantos.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.evandrosantos.cursomc.domain.enums.Status;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,16 +18,18 @@ public class Categoria implements Serializable {
     private String nome;
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
+    private Integer status;
 
     public Categoria() { }
 
-    public Categoria(Integer id, String nome) {
+    public Categoria(Integer id, String nome, Status status) {
         setId(id);
         setNome(nome);
+        setStatus(status);
     }
 
-    public Categoria(String nome) {
-        this(null, nome);
+    public Categoria(String nome, Status status) {
+        this(null, nome, status);
     }
 
     public Integer getId() {
@@ -52,6 +54,14 @@ public class Categoria implements Serializable {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public Status getStatus() {
+        return Status.getEnumByCod(this.status);
+    }
+
+    public void setStatus(Status status) {
+        this.status = status.getCod();
     }
 
     @Override
