@@ -60,6 +60,10 @@ public class Categoria implements Serializable {
         return Status.getEnumByCod(this.status);
     }
 
+    public String getDescricaoStatus() {
+        return getStatus().getDescricao();
+    }
+
     public void setStatus(Status status) {
         this.status = status.getCod();
     }
