@@ -72,7 +72,7 @@ public class ClienteService {
         try {
             repository.delete(cliente);
         } catch (DataIntegrityViolationException e) {
-            throw new MyDataIntegrityViolationException("Não é possível excluir um cliente que possui associações, somente inativar.");
+            throw new MyDataIntegrityViolationException("Não é possível excluir um cliente que possui pedidos, somente inativar.");
         }
     }
 
