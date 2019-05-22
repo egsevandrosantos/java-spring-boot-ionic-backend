@@ -5,6 +5,7 @@ import com.evandrosantos.cursomc.domain.Endereco;
 import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
 import com.evandrosantos.cursomc.dto.enderecos.EnderecoDTO;
+import com.evandrosantos.cursomc.services.validation.ClienteValidate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@ClienteValidate
 public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
@@ -25,6 +27,7 @@ public class ClienteDTO implements Serializable {
     @NotBlank(message = "Preenchimento obrigatório")
     @Email(message = "Email inválido")
     private String email;
+    @NotBlank(message = "Preenchimento obrigatório")
     private String cpfCnpj;
     private TipoCliente tipo;
     private Status status;
