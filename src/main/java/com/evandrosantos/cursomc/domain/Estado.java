@@ -1,5 +1,6 @@
 package com.evandrosantos.cursomc.domain;
 
+import com.evandrosantos.cursomc.dto.estados.EstadoDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +30,10 @@ public class Estado implements Serializable {
 
     public Estado(String nome) {
         this(null, nome);
+    }
+
+    public Estado(EstadoDTO estadoDTO) {
+        this(estadoDTO.getId(), estadoDTO.getNome());
     }
 
     public Integer getId() {

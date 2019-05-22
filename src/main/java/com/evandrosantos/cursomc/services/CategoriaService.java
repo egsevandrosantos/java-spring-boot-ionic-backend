@@ -1,7 +1,7 @@
 package com.evandrosantos.cursomc.services;
 
 import com.evandrosantos.cursomc.domain.Categoria;
-import com.evandrosantos.cursomc.dto.categorias.AlterarStatusDTO;
+import com.evandrosantos.cursomc.dto.generic.AlterarStatusDTO;
 import com.evandrosantos.cursomc.dto.categorias.CategoriaDTO;
 import com.evandrosantos.cursomc.repositories.CategoriaRepository;
 import com.evandrosantos.cursomc.services.exceptions.MyDataIntegrityViolationException;
@@ -35,7 +35,7 @@ public class CategoriaService {
         return categoriasDTO;
     }
 
-    public Page<CategoriaDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
+    public Page<CategoriaDTO> findPage(Integer page, Integer size, String direction, String orderBy) {
         PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), orderBy);
         Page<Categoria> pageCategorias = repository.findAll(pageRequest);
         Page<CategoriaDTO> pageCategoriasDTO = pageCategorias.map(categoria -> new CategoriaDTO(categoria));
@@ -43,9 +43,10 @@ public class CategoriaService {
     }
 
     public Categoria insertOrUpdate(CategoriaDTO categoriaDTO) {
+        Categoria categoria = new Categoria();
         if (categoriaDTO.getId() != null)
-            find(categoriaDTO.getId());
-        Categoria categoria = new Categoria(categoriaDTO);
+            categoria = find(categoriaDTO.getId());
+        categoria.update(categoriaDTO);
         return repository.save(categoria);
     }
 

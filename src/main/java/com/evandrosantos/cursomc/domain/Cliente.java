@@ -1,9 +1,9 @@
 package com.evandrosantos.cursomc.domain;
 
+import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.evandrosantos.cursomc.dto.clientes.ClienteDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,19 +27,21 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
+    private Integer status;
 
     public Cliente() { }
 
-    public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo) {
+    public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
         setId(id);
         setNome(nome);
         setEmail(email);
         setCpfCnpj(cpfCnpj);
         setTipo(tipo);
+        setStatus(status);
     }
 
-    public Cliente(String nome, String email, String cpfCnpj, TipoCliente tipo) {
-        this(null, nome, email, cpfCnpj, tipo);
+    public Cliente(String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
+        this(null, nome, email, cpfCnpj, tipo, status);
     }
 
     public Integer getId() {
@@ -78,6 +80,10 @@ public class Cliente implements Serializable {
         return TipoCliente.getEnumByCod(this.tipo);
     }
 
+    public String getDescricaoTipo() {
+        return getTipo().getDescricao();
+    }
+
     public void setTipo(TipoCliente tipo) {
         this.tipo = tipo.getCod();
     }
@@ -104,6 +110,29 @@ public class Cliente implements Serializable {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public Status getStatus() {
+        return Status.getEnumByCod(this.status);
+    }
+
+    public void setStatus(Status status) {
+        this.status = status.getCod();
+    }
+
+    public String getDescricaoStatus() {
+        return this.getStatus().getDescricao();
+    }
+
+    public void update(ClienteDTO clienteDTO) {
+        this.setId(clienteDTO.getId());
+        this.setNome(clienteDTO.getNome());
+        this.setEmail(clienteDTO.getEmail());
+        this.setTipo(clienteDTO.getTipo());
+        this.setTelefones(clienteDTO.getTelefones());
+        this.setStatus(clienteDTO.getStatus());
+        if (this.getId() == null)
+            this.setCpfCnpj(clienteDTO.getCpfCnpj());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.evandrosantos.cursomc.domain;
 
+import com.evandrosantos.cursomc.dto.cidades.CidadeDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Cidade implements Serializable {
         this.setId(id);
         this.setNome(nome);
         this.setEstado(estado);
+    }
+
+    public Cidade(CidadeDTO cidadeDTO) {
+        this(cidadeDTO.getId(), cidadeDTO.getNome(), new Estado(cidadeDTO.getEstado()));
     }
 
     public Cidade(String nome, Estado estado) {

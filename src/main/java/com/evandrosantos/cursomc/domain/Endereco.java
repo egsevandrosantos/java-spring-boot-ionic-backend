@@ -1,5 +1,6 @@
 package com.evandrosantos.cursomc.domain;
 
+import com.evandrosantos.cursomc.dto.enderecos.EnderecoDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +42,10 @@ public class Endereco implements Serializable {
 
     public Endereco(String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
         this(null, logradouro, numero, complemento, bairro, cep, cliente, cidade);
+    }
+
+    public Endereco(EnderecoDTO enderecoDTO, Cliente cliente) {
+        this(enderecoDTO.getId(), enderecoDTO.getLogradouro(), enderecoDTO.getNumero(), enderecoDTO.getComplemento(), enderecoDTO.getBairro(), enderecoDTO.getCep(), null, null);
     }
 
     public Integer getId() {

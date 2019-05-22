@@ -1,8 +1,11 @@
-package com.evandrosantos.cursomc.dto.categorias;
+package com.evandrosantos.cursomc.dto.generic;
 
 import com.evandrosantos.cursomc.domain.enums.Status;
 
-public class AlterarStatusDTO {
+import java.io.Serializable;
+
+public class AlterarStatusDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Status status;
 

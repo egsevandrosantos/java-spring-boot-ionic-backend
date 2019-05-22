@@ -1,8 +1,7 @@
 package com.evandrosantos.cursomc.resources;
 
 import com.evandrosantos.cursomc.domain.Categoria;
-import com.evandrosantos.cursomc.domain.enums.Status;
-import com.evandrosantos.cursomc.dto.categorias.AlterarStatusDTO;
+import com.evandrosantos.cursomc.dto.generic.AlterarStatusDTO;
 import com.evandrosantos.cursomc.dto.categorias.CategoriaDTO;
 import com.evandrosantos.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "12") Integer size, @RequestParam(value = "orderBy", defaultValue = "id") String orderBy, @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        Page<CategoriaDTO> list = service.findPage(page, size, orderBy, direction);
+    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "12") Integer size, @RequestParam(value = "direction", defaultValue = "ASC") String direction, @RequestParam(value = "orderBy", defaultValue = "id") String orderBy) {
+        Page<CategoriaDTO> list = service.findPage(page, size, direction, orderBy);
         return ResponseEntity.ok().body(list);
     }
 

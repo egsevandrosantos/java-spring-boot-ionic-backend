@@ -33,10 +33,6 @@ public class Categoria implements Serializable {
         this(null, nome, status);
     }
 
-    public Categoria(CategoriaDTO categoriaDTO) {
-        this(categoriaDTO.getId(), categoriaDTO.getNome(), categoriaDTO.getStatus());
-    }
-
     public Integer getId() {
         return id;
     }
@@ -71,6 +67,12 @@ public class Categoria implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status.getCod();
+    }
+
+    public void update(CategoriaDTO categoriaDTO) {
+        this.setId(categoriaDTO.getId());
+        this.setNome(categoriaDTO.getNome());
+        this.setStatus(categoriaDTO.getStatus());
     }
 
     @Override
