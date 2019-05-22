@@ -83,4 +83,12 @@ public class ClienteService {
             repository.save(cliente);
         }
     }
+
+    public Cliente findByEmailEquals(String email) {
+        return repository.findByEmailEquals(email);
+    }
+
+    public Cliente findByCpfCnpjEquals(String cpfCnpj) {
+        return repository.findByCpfCnpjEquals(cpfCnpj);
+    }
 }

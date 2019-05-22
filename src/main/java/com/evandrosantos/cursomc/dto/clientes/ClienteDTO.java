@@ -27,7 +27,6 @@ public class ClienteDTO implements Serializable {
     @NotBlank(message = "Preenchimento obrigatório")
     @Email(message = "Email inválido")
     private String email;
-    @NotBlank(message = "Preenchimento obrigatório")
     private String cpfCnpj;
     private TipoCliente tipo;
     private Status status;
