@@ -35,6 +35,10 @@ public class CategoriaService {
         return categoriasDTO;
     }
 
+    public List<Categoria> findCategoriasByIds(List<Integer> ids) {
+        return repository.findAllById(ids);
+    }
+
     public Page<CategoriaDTO> findPage(Integer page, Integer size, String direction, String orderBy) {
         PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), orderBy);
         Page<Categoria> pageCategorias = repository.findAll(pageRequest);
