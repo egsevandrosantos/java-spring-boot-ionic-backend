@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.domain;
 
 import com.evandrosantos.cursomc.domain.abstracts.Pagamento;
+import com.evandrosantos.cursomc.dto.pedidos.PedidoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -34,6 +35,10 @@ public class Pedido implements Serializable {
         setInstante(instante);
         setCliente(cliente);
         setEnderecoDeEntrega(enderecoDeEntrega);
+    }
+
+    public Pedido(PedidoDTO dto) {
+        this(dto.getId(), dto.getInstante() != null ? dto.getInstante() : new Date(System.currentTimeMillis()), null, null);
     }
 
     public Pedido(Date instante, Cliente cliente, Endereco enderecoDeEntrega) {

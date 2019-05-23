@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.domain;
 
 import com.evandrosantos.cursomc.domain.pk.ItemPedidoPK;
+import com.evandrosantos.cursomc.dto.itensPedidos.ItemPedidoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
@@ -26,6 +27,10 @@ public class ItemPedido implements Serializable {
         setPreco(preco);
     }
 
+    public ItemPedido(ItemPedidoDTO dto) {
+        this(null, null, dto.getDesconto(), dto.getQuantidade(), null);
+    }
+
     public ItemPedido(Double desconto, Integer quantidade, Double preco) {
         this(null, null, desconto, quantidade, preco);
     }
@@ -35,8 +40,16 @@ public class ItemPedido implements Serializable {
         return this.id.getPedido();
     }
 
+    public void setPedido(Pedido pedido) {
+        this.id.setPedido(pedido);
+    }
+
     public Produto getProduto() {
         return this.id.getProduto();
+    }
+
+    public void setProduto(Produto produto) {
+        this.id.setProduto(produto);
     }
 
     public void setId(Pedido pedido, Produto produto) {

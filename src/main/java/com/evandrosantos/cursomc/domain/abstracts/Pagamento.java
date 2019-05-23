@@ -2,8 +2,8 @@ package com.evandrosantos.cursomc.domain.abstracts;
 
 import com.evandrosantos.cursomc.domain.Pedido;
 import com.evandrosantos.cursomc.domain.enums.EstadoPagamento;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.io.Serializable;

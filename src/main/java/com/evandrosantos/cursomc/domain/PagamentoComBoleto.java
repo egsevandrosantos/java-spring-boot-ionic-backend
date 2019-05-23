@@ -2,7 +2,9 @@ package com.evandrosantos.cursomc.domain;
 
 import com.evandrosantos.cursomc.domain.abstracts.Pagamento;
 import com.evandrosantos.cursomc.domain.enums.EstadoPagamento;
+import com.evandrosantos.cursomc.dto.pagamentos.PagamentoComBoletoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -10,9 +12,7 @@ import java.util.Date;
 @Entity
 public class PagamentoComBoleto extends Pagamento {
     private static final long serialVersionUID = 1L;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date dataVencimento;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date dataPagamento;
 
     public PagamentoComBoleto() { super(); }
@@ -25,6 +25,10 @@ public class PagamentoComBoleto extends Pagamento {
 
     public PagamentoComBoleto(EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
         this(null, estado, pedido, dataVencimento, dataPagamento);
+    }
+
+    public PagamentoComBoleto(PagamentoComBoletoDTO dto, Pedido pedido) {
+        this(dto.getId(), dto.getEstado(), pedido, dto.getDataVencimento(), dto.getDataPagamento());
     }
 
     public Date getDataVencimento() {

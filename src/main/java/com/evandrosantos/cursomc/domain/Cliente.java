@@ -42,6 +42,10 @@ public class Cliente implements Serializable {
         setStatus(status);
     }
 
+    public Cliente(ClienteDTO dto) {
+        this(dto.getId(), dto.getNome(), dto.getEmail(), dto.getCpfCnpj(), dto.getTipo(), dto.getStatus());
+    }
+
     public Cliente(String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
         this(null, nome, email, cpfCnpj, tipo, status);
     }
