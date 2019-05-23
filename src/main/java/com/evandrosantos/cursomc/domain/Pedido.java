@@ -96,6 +96,14 @@ public class Pedido implements Serializable {
         this.itens = itens;
     }
 
+    public Double getValorTotal() {
+        double valor = 0.0;
+        for (ItemPedido item : getItens()) {
+            valor += item.getSubTotal();
+        }
+        return valor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
