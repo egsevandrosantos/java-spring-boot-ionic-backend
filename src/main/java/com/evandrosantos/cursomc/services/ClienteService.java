@@ -41,11 +41,9 @@ public class ClienteService {
         return clientesDTO;
     }
 
-    public Cliente find(Integer id) throws ObjectNotFoundException {
+    public Cliente find(Integer id) {
         Optional<Cliente> cliente = repository.findById(id);
-        return cliente.orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Cliente", id));
-        });
+        return cliente.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Cliente", id)));
     }
 
     @Transactional
@@ -67,7 +65,7 @@ public class ClienteService {
         return cliente;
     }
 
-    public void delete(Integer id) throws MyDataIntegrityViolationException {
+    public void delete(Integer id) {
         Cliente cliente = find(id);
         try {
             repository.delete(cliente);

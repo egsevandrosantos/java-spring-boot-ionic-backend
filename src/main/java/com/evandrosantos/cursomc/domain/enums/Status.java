@@ -20,7 +20,7 @@ public enum Status {
         return descricao;
     }
 
-    public static Status getEnumByCod(Integer cod) throws IllegalArgumentException {
+    public static Status getEnumByCod(Integer cod) {
         if (cod == null) return null;
         for (Status x : Status.values()) {
             if (cod.equals(x.getCod())) return x;

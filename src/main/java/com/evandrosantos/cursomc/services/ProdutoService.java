@@ -22,11 +22,9 @@ public class ProdutoService {
     @Autowired
     private CategoriaService categoriaService;
 
-    public Produto find(Integer id) throws ObjectNotFoundException {
+    public Produto find(Integer id) {
         Optional<Produto> produto = repository.findById(id);
-        return produto.orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Produto", id));
-        });
+        return produto.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Produto", id)));
     }
 
     public Page<ProdutoDTO> filterPage(FilterPageDTO dto, Integer page, Integer size, String direction, String orderBy) {

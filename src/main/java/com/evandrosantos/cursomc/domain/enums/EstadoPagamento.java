@@ -21,7 +21,7 @@ public enum EstadoPagamento {
         return this.descricao;
     }
 
-    public static EstadoPagamento getEnumByCod(Integer cod) throws IllegalArgumentException {
+    public static EstadoPagamento getEnumByCod(Integer cod) {
         if (cod == null) return null;
         for(EstadoPagamento x : EstadoPagamento.values()) {
             if (cod.equals(x.getCod())) return x;

@@ -22,11 +22,9 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repository;
 
-    public Categoria find(Integer id) throws ObjectNotFoundException {
+    public Categoria find(Integer id) {
         Optional<Categoria> categoria = repository.findById(id);
-        return categoria.orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Categoria", id));
-        });
+        return categoria.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Categoria", id)));
     }
 
     public List<CategoriaDTO> findAll() {
@@ -54,7 +52,7 @@ public class CategoriaService {
         return repository.save(categoria);
     }
 
-    public void delete(Integer id) throws MyDataIntegrityViolationException {
+    public void delete(Integer id) {
         Categoria categoria = find(id);
         try {
             repository.delete(categoria);

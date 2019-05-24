@@ -17,11 +17,9 @@ public class CidadeService {
     @Autowired
     private EstadoService estadoService;
 
-    public Cidade find(Integer id) throws ObjectNotFoundException {
+    public Cidade find(Integer id) {
         Optional<Cidade> cidade = repository.findById(id);
-        return cidade.orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Cidade", id));
-        });
+        return cidade.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Cidade", id)));
     }
 
     public Cidade insertOrUpdate(CidadeDTO cidadeDTO) {
