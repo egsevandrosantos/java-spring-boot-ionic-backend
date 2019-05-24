@@ -23,7 +23,7 @@ public class PedidoService {
     @Autowired
     private ItemPedidoService itemPedidoService;
 
-    public Pedido find(Integer id) {
+    public Pedido find(Integer id) throws ObjectNotFoundException {
         Optional<Pedido> pedido = repository.findById(id);
         return pedido.orElseThrow(() -> {
             throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Pedido", id));

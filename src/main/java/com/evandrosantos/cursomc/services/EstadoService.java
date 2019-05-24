@@ -14,7 +14,7 @@ public class EstadoService {
     @Autowired
     private EstadoRepository repository;
 
-    public Estado find(Integer id) {
+    public Estado find(Integer id) throws ObjectNotFoundException {
         Optional<Estado> estado = repository.findById(id);
         return estado.orElseThrow(() -> {
             throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Estado", id));

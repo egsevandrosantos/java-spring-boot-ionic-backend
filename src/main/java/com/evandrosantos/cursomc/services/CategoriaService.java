@@ -54,7 +54,7 @@ public class CategoriaService {
         return repository.save(categoria);
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer id) throws MyDataIntegrityViolationException {
         Categoria categoria = find(id);
         try {
             repository.delete(categoria);

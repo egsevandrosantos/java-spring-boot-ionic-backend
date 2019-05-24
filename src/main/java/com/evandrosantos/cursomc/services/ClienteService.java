@@ -41,7 +41,7 @@ public class ClienteService {
         return clientesDTO;
     }
 
-    public Cliente find(Integer id) {
+    public Cliente find(Integer id) throws ObjectNotFoundException {
         Optional<Cliente> cliente = repository.findById(id);
         return cliente.orElseThrow(() -> {
             throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Cliente", id));
@@ -67,7 +67,7 @@ public class ClienteService {
         return cliente;
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer id) throws MyDataIntegrityViolationException {
         Cliente cliente = find(id);
         try {
             repository.delete(cliente);

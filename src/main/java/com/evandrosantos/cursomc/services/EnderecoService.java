@@ -21,7 +21,7 @@ public class EnderecoService {
     @Autowired
     private CidadeService cidadeService;
 
-    public Endereco find(Integer id) {
+    public Endereco find(Integer id) throws ObjectNotFoundException {
         Optional<Endereco> endereco = repository.findById(id);
         return endereco.orElseThrow(() -> {
             throw new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Endereco", id));
