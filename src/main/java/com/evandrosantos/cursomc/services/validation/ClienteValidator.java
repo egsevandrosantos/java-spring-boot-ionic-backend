@@ -27,7 +27,7 @@ public class ClienteValidator implements ConstraintValidator<ClienteValidate, Cl
         // Testes aqui:
 
         if (value.getId() == null) {
-            if (value.getCpfCnpj().trim().isBlank())
+            if (value.getCpfCnpj().trim().isEmpty())
                 list.add(new FieldMessage("cpfCnpj", "Preenchimento obrigatório"));
 
             if (value.getTipo().equals(TipoCliente.PESSOAFISICA)) {
