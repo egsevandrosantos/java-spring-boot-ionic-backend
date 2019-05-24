@@ -5,6 +5,7 @@ import com.evandrosantos.cursomc.dto.pagamentos.PagamentoComBoletoDTO;
 import com.evandrosantos.cursomc.dto.pagamentos.PagamentoComCartaoDTO;
 import com.evandrosantos.cursomc.dto.pedidos.PedidoDTO;
 import com.evandrosantos.cursomc.repositories.PedidoRepository;
+import com.evandrosantos.cursomc.services.email.EmailService;
 import com.evandrosantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class PedidoService {
     private EnderecoService enderecoService;
     @Autowired
     private ItemPedidoService itemPedidoService;
+    @Autowired
+    private EmailService emailService;
 
     public Pedido find(Integer id) {
         Optional<Pedido> pedido = repository.findById(id);
@@ -44,6 +47,7 @@ public class PedidoService {
         pedido = repository.save(pedido);
         Set<ItemPedido> itens = itemPedidoService.insert(pedidoDTO.getItensPedido(), pedido);
         pedido.getItens().addAll(itens);
+        emailService.sendOrderConfirmationEmail(pedido);
         return pedido;
     }
 }
