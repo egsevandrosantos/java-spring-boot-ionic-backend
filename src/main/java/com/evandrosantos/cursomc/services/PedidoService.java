@@ -6,9 +6,7 @@ import com.evandrosantos.cursomc.dto.pagamentos.PagamentoComCartaoDTO;
 import com.evandrosantos.cursomc.dto.pedidos.PedidoDTO;
 import com.evandrosantos.cursomc.repositories.PedidoRepository;
 import com.evandrosantos.cursomc.services.email.EmailService;
-import com.evandrosantos.cursomc.services.exceptions.MyUnirestException;
 import com.evandrosantos.cursomc.services.exceptions.ObjectNotFoundException;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,11 +49,7 @@ public class PedidoService {
         pedido = repository.save(pedido);
         Set<ItemPedido> itens = itemPedidoService.insert(pedidoDTO.getItensPedido(), pedido);
         pedido.getItens().addAll(itens);
-        try {
-            emailService.sendOrderConfirmationEmail(pedido);
-        } catch (UnirestException e) {
-            throw new MyUnirestException("Houve um erro ao enviar a confirmação de pedido ao seu email. O pedido foi revertido.");
-        }
+        emailService.sendOrderConfirmationEmailHtml(pedido);
         return pedido;
     }
 }
