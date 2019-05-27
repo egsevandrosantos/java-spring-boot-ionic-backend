@@ -6,10 +6,13 @@ import com.evandrosantos.cursomc.dto.pagamentos.PagamentoComCartaoDTO;
 import com.evandrosantos.cursomc.dto.pedidos.PedidoDTO;
 import com.evandrosantos.cursomc.repositories.PedidoRepository;
 import com.evandrosantos.cursomc.services.email.EmailService;
+import com.evandrosantos.cursomc.services.exceptions.MyUnirestException;
 import com.evandrosantos.cursomc.services.exceptions.ObjectNotFoundException;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,6 +34,7 @@ public class PedidoService {
         return pedido.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! Id: %d, Tipo: Pedido", id)));
     }
 
+    @Transactional
     public Pedido insertOrUpdate(PedidoDTO pedidoDTO) {
         if (pedidoDTO.getId() != null)
             find(pedidoDTO.getId());
@@ -47,7 +51,11 @@ public class PedidoService {
         pedido = repository.save(pedido);
         Set<ItemPedido> itens = itemPedidoService.insert(pedidoDTO.getItensPedido(), pedido);
         pedido.getItens().addAll(itens);
-        emailService.sendOrderConfirmationEmail(pedido);
+        try {
+            emailService.sendOrderConfirmationEmail(pedido);
+        } catch (UnirestException e) {
+            throw new MyUnirestException("Houve um erro ao enviar a confirmação de pedido ao seu email. O pedido foi revertido.");
+        }
         return pedido;
     }
 }

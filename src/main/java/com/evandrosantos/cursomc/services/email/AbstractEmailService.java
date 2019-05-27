@@ -1,6 +1,7 @@
 package com.evandrosantos.cursomc.services.email;
 
 import com.evandrosantos.cursomc.domain.Pedido;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -11,7 +12,7 @@ public abstract class AbstractEmailService implements EmailService {
     private String defaultSender;
 
     @Override
-    public void sendOrderConfirmationEmail(Pedido pedido) {
+    public void sendOrderConfirmationEmail(Pedido pedido) throws UnirestException {
         SimpleMailMessage smm = prepareSimpleMailMessageFromPedido(pedido);
         sendEmail(smm);
     }

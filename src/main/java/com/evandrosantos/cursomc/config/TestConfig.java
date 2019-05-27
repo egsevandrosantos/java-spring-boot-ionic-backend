@@ -2,7 +2,7 @@ package com.evandrosantos.cursomc.config;
 
 import com.evandrosantos.cursomc.services.DBService;
 import com.evandrosantos.cursomc.services.email.EmailService;
-import com.evandrosantos.cursomc.services.email.SmtpEmailService;
+import com.evandrosantos.cursomc.services.email.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +24,6 @@ public class TestConfig {
 
     @Bean
     public EmailService emailService() {
-        return new SmtpEmailService();
+        return new MockEmailService();
     }
 }
