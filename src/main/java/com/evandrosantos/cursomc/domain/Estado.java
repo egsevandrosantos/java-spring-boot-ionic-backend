@@ -3,10 +3,13 @@ package com.evandrosantos.cursomc.domain;
 import com.evandrosantos.cursomc.dto.estados.EstadoDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +23,14 @@ public class Estado implements Serializable {
     @OneToMany(mappedBy = "estado")
     @JsonIgnore
     private List<Cidade> cidades = new ArrayList<>();
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+    @Column(name = "updated_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     public Estado() { }
 

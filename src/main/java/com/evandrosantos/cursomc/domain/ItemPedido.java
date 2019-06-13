@@ -3,11 +3,13 @@ package com.evandrosantos.cursomc.domain;
 import com.evandrosantos.cursomc.domain.pk.ItemPedidoPK;
 import com.evandrosantos.cursomc.dto.itensPedidos.ItemPedidoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -19,6 +21,14 @@ public class ItemPedido implements Serializable {
     private Double desconto;
     private Integer quantidade;
     private Double preco;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+    @Column(name = "updated_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     public ItemPedido() { }
 
