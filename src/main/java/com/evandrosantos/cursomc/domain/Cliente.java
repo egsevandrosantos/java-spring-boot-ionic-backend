@@ -1,5 +1,6 @@
 package com.evandrosantos.cursomc.domain;
 
+import com.evandrosantos.cursomc.domain.enums.Perfil;
 import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
 import com.evandrosantos.cursomc.dto.clientes.ClienteDTO;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements Serializable {
@@ -40,10 +42,14 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "perfis")
+    private Set<Integer> perfis = new HashSet<>();
 
-    public Cliente() { }
+    public Cliente() { this.getPerfis().add(Perfil.CLIENTE); }
 
     public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
+        this();
         setId(id);
         setNome(nome);
         setEmail(email);
@@ -138,6 +144,14 @@ public class Cliente implements Serializable {
 
     public String getDescricaoStatus() {
         return this.getStatus().getDescricao();
+    }
+
+    public Set<Perfil> getPerfis() {
+        return this.perfis.stream().map(p -> Perfil.toEnum(p)).collect(Collectors.toSet());
+    }
+
+    public void setPerfis(Set<Integer> perfis) {
+        this.perfis = perfis;
     }
 
     public void update(ClienteDTO clienteDTO) {
