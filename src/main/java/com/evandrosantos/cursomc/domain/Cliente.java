@@ -5,8 +5,10 @@ import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
 import com.evandrosantos.cursomc.dto.clientes.ClienteDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,10 +47,12 @@ public class Cliente implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "perfis")
     private Set<Integer> perfis = new HashSet<>();
+    @JsonIgnore
+    private String senha;
 
     public Cliente() { this.getPerfis().add(Perfil.CLIENTE); }
 
-    public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
+    public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status, String senha) {
         this();
         setId(id);
         setNome(nome);
@@ -56,14 +60,15 @@ public class Cliente implements Serializable {
         setCpfCnpj(cpfCnpj);
         setTipo(tipo);
         setStatus(status);
+        setSenha(senha);
     }
 
     public Cliente(ClienteDTO dto) {
-        this(dto.getId(), dto.getNome(), dto.getEmail(), dto.getCpfCnpj(), dto.getTipo(), dto.getStatus());
+        this(dto.getId(), dto.getNome(), dto.getEmail(), dto.getCpfCnpj(), dto.getTipo(), dto.getStatus(), dto.getSenha());
     }
 
-    public Cliente(String nome, String email, String cpfCnpj, TipoCliente tipo, Status status) {
-        this(null, nome, email, cpfCnpj, tipo, status);
+    public Cliente(String nome, String email, String cpfCnpj, TipoCliente tipo, Status status, String senha) {
+        this(null, nome, email, cpfCnpj, tipo, status, senha);
     }
 
     public Integer getId() {
@@ -152,6 +157,14 @@ public class Cliente implements Serializable {
 
     public void setPerfis(Set<Integer> perfis) {
         this.perfis = perfis;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void update(ClienteDTO clienteDTO) {

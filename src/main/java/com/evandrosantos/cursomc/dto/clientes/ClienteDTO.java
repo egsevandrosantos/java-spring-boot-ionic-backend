@@ -6,6 +6,8 @@ import com.evandrosantos.cursomc.domain.enums.Status;
 import com.evandrosantos.cursomc.domain.enums.TipoCliente;
 import com.evandrosantos.cursomc.dto.enderecos.EnderecoDTO;
 import com.evandrosantos.cursomc.services.validation.ClienteValidate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
 
 @ClienteValidate
 public class ClienteDTO implements Serializable {
+    @Autowired
+    private BCryptPasswordEncoder bCrypt;
+
     private static final long serialVersionUID = 1L;
     private Integer id;
     @NotBlank(message = "Preenchimento obrigatório")
@@ -32,10 +37,12 @@ public class ClienteDTO implements Serializable {
     private Status status;
     private List<EnderecoDTO> enderecos = new ArrayList<>();
     private Set<String> telefones = new HashSet<>();
+    @NotBlank(message = "Preenchimento obrigatório")
+    private String senha;
 
     public ClienteDTO() { }
 
-    public ClienteDTO(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status, List<EnderecoDTO> enderecos, Set<String> telefones) {
+    public ClienteDTO(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, Status status, List<EnderecoDTO> enderecos, Set<String> telefones, String senha) {
         setId(id);
         setNome(nome);
         setEmail(email);
@@ -44,10 +51,11 @@ public class ClienteDTO implements Serializable {
         setStatus(status);
         setEnderecos(enderecos);
         setTelefones(telefones);
+        setSenha(senha);
     }
 
     public ClienteDTO(Cliente cliente) {
-        this(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getCpfCnpj(), cliente.getTipo(), cliente.getStatus(), cliente.getEnderecos().stream().map(endereco -> new EnderecoDTO(endereco)).collect(Collectors.toList()), cliente.getTelefones());
+        this(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getCpfCnpj(), cliente.getTipo(), cliente.getStatus(), cliente.getEnderecos().stream().map(endereco -> new EnderecoDTO(endereco)).collect(Collectors.toList()), cliente.getTelefones(), cliente.getSenha());
     }
 
     public Integer getId() {
@@ -120,5 +128,13 @@ public class ClienteDTO implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public String getSenha() {
+        return bCrypt.encode(senha);
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
