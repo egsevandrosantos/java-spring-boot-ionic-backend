@@ -5,6 +5,7 @@ import com.evandrosantos.cursomc.dto.itensPedidos.ItemPedidoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

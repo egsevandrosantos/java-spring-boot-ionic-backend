@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
